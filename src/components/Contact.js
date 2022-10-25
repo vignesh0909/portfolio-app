@@ -38,9 +38,9 @@ img{
 const Main = styled.div`
 border: 2px solid ${(props) => props.theme.text};
   color: ${(props) => props.theme.text};
-  padding: 2rem;
-  width: 50vw;
-  height: 60vh;
+  padding: 1rem;
+  width: 65vw;
+  height: 70vh;
   z-index: 3;
   line-height: 1.5;
   display: flex;
@@ -107,7 +107,9 @@ const Contact = () => {
                         <Container>
                             <Row className="align-items-center">
                                 <Col md={6}>
-                                    <h2 md={6}>Get In Touch</h2>
+                                    <Col>
+                                        <h2 sm={2}>Get In Touch</h2>
+                                    </Col>
                                     <form onSubmit={handleSubmit}>
                                         <Row>
                                             <Col sm={6} className="px-1">
@@ -145,8 +147,8 @@ const Contact = () => {
                                         </Row>
                                     </form>
                                 </Col>
-                                <Col md={6}>
-                                    <img src={conatctImg} alt="contact-img"/>
+                                <Col md={6} className="d-none d-md-block">
+                                    <img src={conatctImg} alt="contact-img" />
                                 </Col>
                             </Row>
                         </Container>
