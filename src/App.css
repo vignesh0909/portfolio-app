@@ -87,7 +87,7 @@
   transition: 0.3s ease-in-out;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 554px) {
   .contact h2 {
     font-size: 23px;
     font-weight: 700;
