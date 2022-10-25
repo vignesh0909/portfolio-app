@@ -40,7 +40,7 @@ border: 2px solid ${(props) => props.theme.text};
   color: ${(props) => props.theme.text};
   padding: 1rem;
   width: 65vw;
-  height: 70vh;
+  height: 65vh;
   z-index: 3;
   line-height: 1.5;
   display: flex;
