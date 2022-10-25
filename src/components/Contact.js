@@ -146,7 +146,7 @@ const Contact = () => {
                                     </form>
                                 </Col>
                                 <Col md={6}>
-                                    <img src={conatctImg} />
+                                    <img src={conatctImg} alt="contact-img"/>
                                 </Col>
                             </Row>
                         </Container>
