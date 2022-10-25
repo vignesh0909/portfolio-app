@@ -7,16 +7,19 @@ const nodemailer = require("nodemailer");
 const app = express();
 app.use(cors());
 app.use(express.json());
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 app.use("/", router);
-app.listen(5000, () => console.log("Server Started at port 5000"));
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
+// console.log(process.env.PORT);
+app.listen(process.env.PORT || 5000, () => console.log("Server Started at port 5000"));
+// console.log(process.env.EMAIL_USER);
+// console.log(process.env.EMAIL_PASS);
 
 const contactEmail = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: "viggu.viggu143@gmail.com",
-        pass: "mlmtamupxnjlfgjk"
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     },
 });
 
