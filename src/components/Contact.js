@@ -75,7 +75,7 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setButtonText("Sending...");
-        axios.post("http://localhost:5000/contact", formDetails).then((res) => {
+        axios.post(process.env.API_URL, formDetails).then((res) => {
             console.log(res);
             let result = res;
             setFormDetails(formInitialDetails);
