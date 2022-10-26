@@ -1,4 +1,1 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> 7c4b3d7b2d0275e664912b10a53ec57cf0f12cc5
+React Js Portfolio of Vignesh.
