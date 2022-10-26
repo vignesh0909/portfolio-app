@@ -71,10 +71,10 @@ const Contact = () => {
     const onFormUpdate = (category, value) => {
         setFormDetails({ ...formDetails, [category]: value })
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setButtonText("Sending...");
+        
         axios.post(process.env.API_URL, formDetails).then((res) => {
             console.log(res);
             let result = res;
