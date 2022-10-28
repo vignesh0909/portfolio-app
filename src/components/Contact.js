@@ -10,6 +10,8 @@ import ParticleComponent from '../subComponents/ParticleComponent';
 import BigTitle from '../subComponents/BigTitlte'
 import conatctImg from '../assets/svg/contact-img.svg'
 import astronaut from '../assets/Images/spaceman.png'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Box = styled.div`
 background-color: ${props => props.theme.body};
@@ -66,7 +68,7 @@ const Contact = () => {
 
     const [formDetails, setFormDetails] = useState(formInitialDetails);
     const [buttonText, setButtonText] = useState('Send');
-    const [status, setStatus] = useState({});
+    //const [status, setStatus] = useState({});
     const [formErrors, setFormErrors] = useState({
         nameError: "",
         passwordError: "",
@@ -102,7 +104,11 @@ const Contact = () => {
         console.log(formDetails);
         setButtonText("Sending...");
         if (formDetails.firstName === "" || formDetails.lastName === "" || formDetails.email === "" || formDetails.phone === "" || formDetails.message === "") {
+            setButtonText("Send");
             setFormErrors({ ...formErrors, emptyFormError: "Form field cannot be empty" })
+            toast.error("Form field cannot be empty!", {
+                position: toast.POSITION.TOP_RIGHT
+            });
         } else {
             axios.post(process.env.REACT_APP_API_URL, formDetails).then((res) => {
                 console.log(res);
@@ -110,9 +116,15 @@ const Contact = () => {
                 setFormDetails(formInitialDetails);
                 setButtonText("Send");
                 if (result.status === 200) {
-                    setStatus({ success: true, message: 'Message sent successfully!' });
+                    //setStatus({ success: true, message: 'Message sent successfully!' });
+                    toast.success("Message Sent Successfully", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
                 } else {
-                    setStatus({ success: false, message: 'Something went wrong! please try again...' });
+                    toast.error("Something went wrong! please try again...", {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    //setStatus({ success: false, message: 'Something went wrong! please try again...' });
                 }
             }).catch((err) => {
                 console.log(process.env.REACT_APP_API_URL);
@@ -120,6 +132,11 @@ const Contact = () => {
             })
         }
     }
+
+    // const notify = () => {
+    //     console.log(formErrors.emptyFormError);
+    //     toast(formErrors.emptyFormError);
+    // }
 
     return (
         <ThemeProvider theme={DarkTheme}>
@@ -145,29 +162,30 @@ const Contact = () => {
                                         <Row>
                                             <Col sm={6} className="px-1">
                                                 <input id="firstName" type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => {
-                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('firstName', e.target.value)
+                                                    setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('firstName', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col md={6} className='px-1'>
                                                 <input id="lastName" type="text" value={formDetails.lastName} placeholder="Last Name" onChange={(e) => {
-                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('lastName', e.target.value)
+                                                    setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('lastName', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col md={6} className='px-1'>
                                                 <input id="email" type="email" value={formDetails.email} placeholder="Email Address" onChange={(e) => {
-                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); onFormUpdate('email', e.target.value)
+                                                    setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); onFormUpdate('email', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col md={6} className='px-1'>
                                                 <input id="phone" type="tel" value={formDetails.phone} placeholder="Phone No." onChange={(e) => {
-                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); onFormUpdate('phone', e.target.value)
+                                                    setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); onFormUpdate('phone', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col className='px-1'>
                                                 <input type="textarea" value={formDetails.message} placeholder="Message" onChange={(e) => {
-                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('message', e.target.value)
+                                                    setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('message', e.target.value)
                                                 }} />
                                                 <button type="submit"><span>{buttonText}</span></button>
+
                                             </Col>
 
                                         </Row>
@@ -176,19 +194,20 @@ const Contact = () => {
                                 <Col md={6} className="d-none d-md-block">
                                     <img src={conatctImg} alt="contact-img" />
                                 </Col>
-                                <Col className='m-2'>
+                                {/* <Col className='m-2'>
                                     <p className='text-warning'>{formErrors.emptyFormError}</p>
+                                    <ToastContainer />
                                     {
                                         status.message &&
-                                        <Col >
-                                            <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
-                                        </Col>
+                                        <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
                                     }
-                                </Col>
+                                </Col> */}
+
                             </Row>
                         </Container>
                     </section>
                 </Main>
+                <ToastContainer />
                 <BigTitle text="CONTACT ME" top="80%" left="30%" />
             </Box>
         </ThemeProvider>

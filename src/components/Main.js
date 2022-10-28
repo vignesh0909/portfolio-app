@@ -60,7 +60,7 @@ transform: rotate(90deg) translate(-50%, -50%);
 text-decoration: none;
 z-index:1;
 `
-const WORK = styled(NavLink)`
+const LINK = styled(NavLink)`
 color: ${props => props.click ? props.theme.body : props.theme.text};
 
 position: absolute;
@@ -195,23 +195,7 @@ const Main = () => {
                         Say hi..
                     </motion.h2>
                 </Contact>
-                <BLOG to="/blog">
-                    <motion.h2
-                        initial={{
-                            y: -200,
-                            transition: { type: 'spring', duration: 1.5, delay: 1 }
-                        }}
-                        animate={{
-                            y: 0,
-                            transition: { type: 'spring', duration: 1.5, delay: 1 }
-                        }}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                    >
-                        Blog
-                    </motion.h2>
-                </BLOG>
-                <WORK to="/work" click={+click}>
+                <BLOG to="/work">
                     <motion.h2
                         initial={{
                             y: -200,
@@ -226,7 +210,23 @@ const Main = () => {
                     >
                         Work
                     </motion.h2>
-                </WORK>
+                </BLOG>
+                <LINK className="text-decoration-none text-dark" to="/files/resume.pdf" target="_blank" download>
+                    <motion.h2
+                        initial={{
+                            y: -200,
+                            transition: { type: 'spring', duration: 1.5, delay: 1 }
+                        }}
+                        animate={{
+                            y: 0,
+                            transition: { type: 'spring', duration: 1.5, delay: 1 }
+                        }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}   
+                    >
+                        Resume
+                    </motion.h2>
+                </LINK>
                 <BottomBar>
                     <ABOUT to="/about" click={+click}>
                         <motion.h2
