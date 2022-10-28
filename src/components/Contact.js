@@ -176,8 +176,8 @@ const Contact = () => {
                                 <Col md={6} className="d-none d-md-block">
                                     <img src={conatctImg} alt="contact-img" />
                                 </Col>
-                                <Col>
-                                    <p className='m-1 text-warning'>{formErrors.emptyFormError}</p>
+                                <Col className='m-2'>
+                                    <p className='text-warning'>{formErrors.emptyFormError}</p>
                                     {
                                         status.message &&
                                         <Col >
