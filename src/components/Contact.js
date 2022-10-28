@@ -67,27 +67,58 @@ const Contact = () => {
     const [formDetails, setFormDetails] = useState(formInitialDetails);
     const [buttonText, setButtonText] = useState('Send');
     const [status, setStatus] = useState({});
+    const [formErrors, setFormErrors] = useState({
+        nameError: "",
+        passwordError: "",
+        dobError: "",
+        mobileError: "",
+        specialityError: "",
+        genderError: "",
+        emptyFormError: ""
+    })
 
     const onFormUpdate = (category, value) => {
         setFormDetails({ ...formDetails, [category]: value })
     }
+
+    const validateInput = (e) => {
+        if (e.target.id === "phone") {
+            let mobile = e.target.value;
+            if (mobile.length === 10) {
+                setFormErrors({ ...formErrors, mobileError: "" })
+            } else {
+                setFormErrors({ ...formErrors, mobileError: "Phone Number should have 10 digits" });
+            }
+        } else if (e.target.id === "email") {
+
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // setSuccess("");
+        // setMessage("");
+        setFormErrors({});
+        console.log(formDetails);
         setButtonText("Sending...");
-        
-        axios.post(process.env.API_URL, formDetails).then((res) => {
-            console.log(res);
-            let result = res;
-            setFormDetails(formInitialDetails);
-            setButtonText("Send");
-            if (result.status === 200) {
-                setStatus({ success: true, message: 'Message sent successfully!' });
-            } else {
-                setStatus({ success: false, message: 'Something went wrong! please try again...' });
-            }
-        }).catch((err) => {
-            console.log(err);
-        })
+        if (formDetails.firstName === "" || formDetails.lastName === "" || formDetails.email === "" || formDetails.phone === "" || formDetails.message === "") {
+            setFormErrors({ ...formErrors, emptyFormError: "Form field cannot be empty" })
+        } else {
+            axios.post(process.env.REACT_APP_API_URL, formDetails).then((res) => {
+                console.log(res);
+                let result = res;
+                setFormDetails(formInitialDetails);
+                setButtonText("Send");
+                if (result.status === 200) {
+                    setStatus({ success: true, message: 'Message sent successfully!' });
+                } else {
+                    setStatus({ success: false, message: 'Something went wrong! please try again...' });
+                }
+            }).catch((err) => {
+                console.log(process.env.REACT_APP_API_URL);
+                console.log(err);
+            })
+        }
     }
 
     return (
@@ -113,42 +144,46 @@ const Contact = () => {
                                     <form onSubmit={handleSubmit}>
                                         <Row>
                                             <Col sm={6} className="px-1">
-                                                <input type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => {
-                                                    setStatus(""); onFormUpdate('firstName', e.target.value)
+                                                <input id="firstName" type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => {
+                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('firstName', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col md={6} className='px-1'>
-                                                <input type="text" value={formDetails.lastName} placeholder="Last Name" onChange={(e) => {
-                                                    setStatus(""); onFormUpdate('lastName', e.target.value)
+                                                <input id="lastName" type="text" value={formDetails.lastName} placeholder="Last Name" onChange={(e) => {
+                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('lastName', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col md={6} className='px-1'>
-                                                <input type="email" value={formDetails.email} placeholder="Email Address" onChange={(e) => {
-                                                    setStatus(""); onFormUpdate('email', e.target.value)
+                                                <input id="email" type="email" value={formDetails.email} placeholder="Email Address" onChange={(e) => {
+                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); onFormUpdate('email', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col md={6} className='px-1'>
-                                                <input type="tel" value={formDetails.phone} placeholder="Phone No." onChange={(e) => {
-                                                    setStatus(""); onFormUpdate('phone', e.target.value)
+                                                <input id="phone" type="tel" value={formDetails.phone} placeholder="Phone No." onChange={(e) => {
+                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); validateInput(e); onFormUpdate('phone', e.target.value)
                                                 }} />
                                             </Col>
                                             <Col className='px-1'>
                                                 <input type="textarea" value={formDetails.message} placeholder="Message" onChange={(e) => {
-                                                    setStatus(""); onFormUpdate('message', e.target.value)
+                                                    setStatus(""); setFormErrors({ ...formErrors, emptyFormError: "" }); onFormUpdate('message', e.target.value)
                                                 }} />
                                                 <button type="submit"><span>{buttonText}</span></button>
                                             </Col>
-                                            {
-                                                status.message &&
-                                                <Col >
-                                                    <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
-                                                </Col>
-                                            }
+
                                         </Row>
                                     </form>
                                 </Col>
                                 <Col md={6} className="d-none d-md-block">
                                     <img src={conatctImg} alt="contact-img" />
+                                </Col>
+                                <Col>
+                                    <p className='m-1 text-warning'>{formErrors.emptyFormError}</p>
+                                    {
+                                        status.message &&
+                                        <Col >
+                                            <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
+                                        </Col>
+                                    }
                                 </Col>
                             </Row>
                         </Container>
