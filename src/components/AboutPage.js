@@ -38,8 +38,8 @@ const Main = styled.div`
   border: 2px solid ${(props) => props.theme.text};
   color: ${(props) => props.theme.text};
   padding: 2rem;
-  width: 50vw;
-  height: 60vh;
+  width: 65vw;
+  height: 65vh;
   z-index: 3;
   line-height: 1.5;
   display: flex;

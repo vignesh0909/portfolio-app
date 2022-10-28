@@ -10,17 +10,13 @@ const Icons = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
-
 position: fixed;
 bottom: 0;
-left: 2rem;
-
+left: 1rem;
 z-index:3;
-
 &>*:not(:last-child){
     margin: 0.5rem 0;
 }
-
 `
 
 const Line = styled(motion.span)`

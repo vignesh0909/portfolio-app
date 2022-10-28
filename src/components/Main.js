@@ -51,7 +51,7 @@ right: calc(1rem + 2vw);
 text-decoration: none;
 z-index:1;
 `
-const BLOG = styled(NavLink)`
+const LINK = styled(NavLink)`
 color: ${props => props.theme.text};
 position: absolute;
 top: 50%;
@@ -60,9 +60,8 @@ transform: rotate(90deg) translate(-50%, -50%);
 text-decoration: none;
 z-index:1;
 `
-const LINK = styled(NavLink)`
+const WORK = styled(NavLink)`
 color: ${props => props.click ? props.theme.body : props.theme.text};
-
 position: absolute;
 top: 50%;
 left: calc(1rem + 2vw);
@@ -77,7 +76,6 @@ bottom: 1rem;
 left: 0;
 right: 0;
 width: 100%;
-
 display: flex;
 justify-content: space-evenly;
 `
@@ -166,7 +164,6 @@ const Main = () => {
                         }}
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-
                     >
                         <h1 className='welcome-msg'>Hi, I am Vignesh,</h1> <br />
                         <h1 className='welcome-msg'>Welcome to my portfolio.</h1>
@@ -174,7 +171,7 @@ const Main = () => {
 
                 </Welcome>
                 <Center click={click}>
-                    <YinYang onClick={() => handleClick()} width={click ? 120 : 200} height={click ? 120 : 200} fill='currentColor' />
+                    <YinYang onClick={() => handleClick()} width={click ? 50 : 150} height={click ? 120 : 150} fill='currentColor' />
                     <span>click here to see the magic..</span>
                 </Center>
 
@@ -195,7 +192,7 @@ const Main = () => {
                         Say hi..
                     </motion.h2>
                 </Contact>
-                <BLOG to="/work">
+                <LINK to="/work">
                     <motion.h2
                         initial={{
                             y: -200,
@@ -210,8 +207,8 @@ const Main = () => {
                     >
                         Work
                     </motion.h2>
-                </BLOG>
-                <LINK className="text-decoration-none text-dark" to="/files/resume.pdf" target="_blank" download>
+                </LINK>
+                <WORK className="text-decoration-none text-dark" to="/files/resume.pdf" target="_blank" download>
                     <motion.h2
                         initial={{
                             y: -200,
@@ -226,7 +223,7 @@ const Main = () => {
                     >
                         Resume
                     </motion.h2>
-                </LINK>
+                </WORK>
                 <BottomBar>
                     <ABOUT to="/about" click={+click}>
                         <motion.h2
